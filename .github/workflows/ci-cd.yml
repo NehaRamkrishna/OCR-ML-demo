@@ -27,11 +27,19 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/app -e GIT_PYTHON_REFRESH=quiet ocr
 
-      - name: List files for debug
-        run: ls -lh
+      - name: List files after Docker run
+        run: |
+          ls -lh
+          ls -lh mlruns || echo "No mlruns directory found"
 
       - name: Upload OCR output artifact
         uses: actions/upload-artifact@v4
         with:
           name: ocr_output
           path: ocr_output.txt
+
+      - name: Upload MLflow logs (mlruns folder)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow_logs
+          path: mlruns

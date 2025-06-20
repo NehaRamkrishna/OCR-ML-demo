@@ -1,5 +1,7 @@
 FROM python:3.10-slim
 
+RUN apt-get update && apt-get install -y git
+export GIT_PYTHON_REFRESH=quiet
 # Install OCR & PDF utilities
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
